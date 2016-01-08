@@ -147,8 +147,8 @@ var styles = StyleSheet.create({
 	//占位符，放置图片
 	,holder:{
 		backgroundColor:'#eee'
-		,width:40
-		,height:40
+		,width:60
+		,height:60
 		,marginRight:5
 		,alignItems:'center'
 		,justifyContent:'center'
