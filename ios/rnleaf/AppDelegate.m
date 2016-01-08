@@ -16,11 +16,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/app/loading.ios.bundle?platform=ios&dev=true"];
-  
+//  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/app/loading.ios.bundle?platform=ios&dev=true"];
   
 // curl -o ./rnleaf/loading.jsbundle "http://localhost:8081/app/loading.ios.bundle"
-//jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"loading" withExtension:@"jsbundle"];
+  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"loading" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"rnleaf"

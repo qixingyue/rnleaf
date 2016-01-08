@@ -1359,9 +1359,10 @@ appItem:{
 padding:5,
 borderBottomWidth:1,
 borderStyle:'solid',
-alignItems:'flex-start',
 flexDirection:'row',
-borderColor:'#B3D5BC'},
+borderColor:'#B3D5BC',
+alignItems:'center',
+justifyContent:'center'},
 
 
 
@@ -1369,7 +1370,9 @@ holder:{
 backgroundColor:'#eee',
 width:40,
 height:40,
-marginRight:5},
+marginRight:5,
+alignItems:'center',
+justifyContent:'center'},
 
 textPanel:{
 marginLeft:15,
@@ -1392,8 +1395,8 @@ borderWidth:1,
 borderRadius:4,
 margin:2,
 padding:2,
-alignItems:'center'}});
-
+alignItems:'center',
+height:30}});
 
 
 
@@ -57534,7 +57537,8 @@ StyleSheet=
 
 
 
-React.StyleSheet;var Text=React.Text;var NativeModules=React.NativeModules;var TouchableOpacity=React.TouchableOpacity;
+
+React.StyleSheet;var Text=React.Text;var NativeModules=React.NativeModules;var TouchableOpacity=React.TouchableOpacity;var Alert=React.Alert;
 
 var rctUpdateObj=NativeModules.RctUpdate;
 
@@ -57549,22 +57553,29 @@ position:'absolute'}});
 
 
 
+var warningMessage=function(message){
+if(null==message){
+message="LOAD ERROR !";}
+
+Alert.alert("Warning",message);};
+
+
 module.exports={
 
 loadFromUrl:function(url,moduleName){
-rctUpdateObj.loadFromUrl(url,moduleName);},
+rctUpdateObj.loadFromUrl(url,moduleName,function(){warningMessage();});},
 
 
 loadFromLocal:function(moduleName){
-rctUpdateObj.loadFromLocal(moduleName);},
+rctUpdateObj.loadFromLocal(moduleName,function(){warningMessage();});},
 
 
 backToBase:function(){
-rctUpdateObj.backToBase();},
+rctUpdateObj.backToBase(function(){warningMessage();});},
 
 
 downloadAndRun:function(url,moduleName){
-rctUpdateObj.downloadAndRun(url,moduleName);},
+rctUpdateObj.downloadAndRun(url,moduleName,function(){warningMessage();});},
 
 
 
