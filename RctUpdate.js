@@ -9,6 +9,7 @@ var {
   ,Text
 	,NativeModules
 	,TouchableOpacity
+	,Alert
 } = React;
 
 var rctUpdateObj = NativeModules.RctUpdate;
@@ -24,22 +25,29 @@ var styles = StyleSheet.create({
 	}
 });
 
+var warningMessage = function(message){
+	if(null == message){
+		message = "LOAD ERROR !";	
+	}
+	Alert.alert("Warning",message);
+};
+
 module.exports = {
 
 	loadFromUrl(url,moduleName){
-			rctUpdateObj.loadFromUrl(url,moduleName);
+			rctUpdateObj.loadFromUrl(url,moduleName,()=>{warningMessage()});
 	}
 
 	,loadFromLocal(moduleName){
-			rctUpdateObj.loadFromLocal(moduleName);
+			rctUpdateObj.loadFromLocal(moduleName,()=>{warningMessage()});
 	}
 
 	,backToBase(){
-			rctUpdateObj.backToBase();
+			rctUpdateObj.backToBase(()=>{warningMessage()});
 	}
 
 	,downloadAndRun(url,moduleName){
-			rctUpdateObj.downloadAndRun(url,moduleName);
+			rctUpdateObj.downloadAndRun(url,moduleName,()=>{warningMessage()});
 	}
 
 	//切换场景，需提供中断回调

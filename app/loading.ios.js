@@ -138,9 +138,10 @@ var styles = StyleSheet.create({
 		padding:5
 		,borderBottomWidth:1
 		,borderStyle:'solid'
-		,alignItems:'flex-start'
 		,flexDirection:'row'
 		,borderColor:'#B3D5BC'
+		,alignItems:'center'
+		,justifyContent:'center'
 	}
 	
 	//占位符，放置图片
@@ -149,6 +150,8 @@ var styles = StyleSheet.create({
 		,width:40
 		,height:40
 		,marginRight:5
+		,alignItems:'center'
+		,justifyContent:'center'
 	}
 	,textPanel: {
 		marginLeft:15
@@ -172,7 +175,7 @@ var styles = StyleSheet.create({
 		,margin:2
 		,padding:2
 		,alignItems:'center'
-
+		,height:30
 	}
 });
 
