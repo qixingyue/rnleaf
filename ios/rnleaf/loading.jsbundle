@@ -1282,18 +1282,27 @@ React.createElement(Text,{style:styles.itemTitle},'run@local')))));},
 
 
 _loadDefault:function(){
+this.setState({
+loaded:false});
+
 var url=this.state.itemInfo.url;
 var moduleName=this.state.itemInfo.moduleName;
 RU.loadFromUrl(url,moduleName);},
 
 
 _dAndRun:function(){
+this.setState({
+loaded:false});
+
 var url=this.state.itemInfo.url;
 var moduleName=this.state.itemInfo.moduleName;
 RU.downloadAndRun(url,moduleName);},
 
 
 _rLocal:function(){
+this.setState({
+loaded:false});
+
 var moduleName=this.state.itemInfo.moduleName;
 RU.loadFromLocal(moduleName);}});
 
@@ -1310,9 +1319,9 @@ dataSource:dataSource.cloneWithRows([])};},
 
 
 render:function(){
-if(false==this.loaded){
+if(false==this.state.loaded){
 return (
-React.createElement(View,{style:styles.container},
+React.createElement(View,{style:[styles.container,{alignItems:'center',justifyContent:'center'}]},
 React.createElement(ActivityIndicatorIOS,{color:'red',size:'large',animating:true}),
 React.createElement(Text,{style:styles.littleMargin},'Loading App List ...')));}else 
 

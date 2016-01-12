@@ -35,7 +35,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>I need Your Location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>I need Your Location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>I need Your Locaiton</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

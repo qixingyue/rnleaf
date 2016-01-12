@@ -1,15 +1,16 @@
-var RADIUS = 6371;
+"use strict";
+
+var RADIUS = 6371 * 1000;
 
 var toRad = function(n) {
   return n * Math.PI / 180;
 };
 
 var getDistance = function(from, to) {
-  var fromLat = from[0];
-  var fromLon = from[1];
-  var toLat = to[0];
-  var toLon = to[1];
-
+  var fromLat = from.coords.latitude;
+  var fromLon = from.coords.longitude;
+  var toLat = to.coords.latitude;
+  var toLon = to.coords.longitude;
   var dLat = toRad(toLat - fromLat);
   var dLon = toRad(toLon - fromLon);
   var fromLat = toRad(fromLat);
@@ -22,17 +23,4 @@ var getDistance = function(from, to) {
   return RADIUS * c;
 };
 
-var measurePath = function(points) {
-  return points.reduce(function(memo, point) {
-    var distance = memo.lastPoint === null ? 0 : getDistance(memo.lastPoint, point);
-    return { lastPoint: point, distance: distance + memo.distance };
-  }, { lastPoint: null, distance: 0 }).distance;
-};
-
-module.exports = function(fromLat, fromLon, toLat, toLon) {
-  if(typeof fromLat === 'number'){
-    return getDistance([fromLat, fromLon], [toLat, toLon]);
-  } else {
-    return measurePath(fromLat);
-  }
-};
+module.exports = getDistance ;

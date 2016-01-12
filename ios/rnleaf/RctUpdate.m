@@ -30,7 +30,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (BOOL) checkURL:(NSURL *) url {
-  NSURLRequest *request = [[NSURLRequest alloc] initWithURL : url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5];
+  NSURLRequest *request = [[NSURLRequest alloc] initWithURL : url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
   dataPtr = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
   if([dataPtr length] == 0 ) return NO;
   return YES;
@@ -122,6 +122,7 @@ RCT_EXPORT_METHOD(downloadAndRun : (NSString*) url : (NSString*) moduleName : (R
 
 RCT_EXPORT_METHOD(loadFromUrl : (NSString*) url : (NSString*) moduleName : (RCTResponseSenderBlock) callback)
 {
+  NSLog(@"Download  run %@",url);
   if( NO == [self refreshApplicationViewWithUrl:url:moduleName]) {
       callback(@[[NSNull null]]);
   }

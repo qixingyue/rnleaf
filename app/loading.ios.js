@@ -61,18 +61,27 @@ var AppItem = React.createClass({
 		}
 
 		,_loadDefault(){
+			this.setState({
+				loaded:false
+			});
 			var url = this.state.itemInfo.url;
 			var moduleName = this.state.itemInfo.moduleName;
 			RU.loadFromUrl(url,moduleName)
 		}
 
 		,_dAndRun(){
+			this.setState({
+				loaded:false
+			});
 			var url = this.state.itemInfo.url;
 			var moduleName = this.state.itemInfo.moduleName;
 			RU.downloadAndRun(url,moduleName)
 		}
 
 		,_rLocal(){
+			this.setState({
+				loaded:false
+			});
 			var moduleName = this.state.itemInfo.moduleName;
 			RU.loadFromLocal(moduleName)
 		}
@@ -89,9 +98,9 @@ var rnleaf = React.createClass({
 	}	
 
   ,render() {
-		if(false == this.loaded) {
+		if(false == this.state.loaded) {
 			return (	
-    	  <View style={styles.container}>
+    	  <View style={[styles.container,{alignItems:'center',justifyContent:'center'}]}>
 					<ActivityIndicatorIOS color="red" size="large" animating={true}></ActivityIndicatorIOS>
 					<Text style={styles.littleMargin}>Loading App List ...</Text>
 				</View>
@@ -124,8 +133,8 @@ var rnleaf = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF'
+    flex: 1
+    ,backgroundColor: '#F5FCFF'
   }
 	,littleMargin: {
 		margin:15
