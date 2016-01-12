@@ -29,6 +29,7 @@ var tinyrace = React.createClass({
 	,markpoints:[]
 	,watchID:false
 	,gpsWatched:false
+	,scores:[]
 	,getInitialState(){
 		//var rpoints = new ListView.DataSource({rowHasChanged: (r1, r2) => (r1 !== r2)});
 		var rpoints = new ListView.DataSource({rowHasChanged: (r1, r2) => true });
@@ -47,6 +48,9 @@ var tinyrace = React.createClass({
 		return (
 			<View style={styles.container}>
 				<ShowTimer.Show></ShowTimer.Show>
+				<TouchableHighlight onPress={this.seeCores} underlayColor="#red">
+						<Text style={styles.btntext}>See Scores</Text>
+				</TouchableHighlight>
 				<View>
 						<ListView
 							dataSource = {this.state.rpoints}	
@@ -83,7 +87,6 @@ var tinyrace = React.createClass({
 		this.watchID = navigator.geolocation.watchPosition((position) => {
 			this.setState({gpsobj:position,state:"Stop Watch"});
 			this.reCalucate();
-			console.log(ShowTimer.getTime());
 		},(error) => {this.startWatchGps();this.watchID = false;}
 		,{enableHighAccuracy: true, timeout: 0, maximumAge: 0} );	
 	}
@@ -114,6 +117,10 @@ var tinyrace = React.createClass({
 		if( me.markpoints.length > 0) {
 				for(var k in me.markpoints){
 					me.markpoints[k].distance = GpsDistance(me.markpoints[k],me.state.gpsobj);
+					if(me.markpoints[k].distance < 10 ) {
+						if(me.scores[k] == null) me.scores[k] = [];
+						me.scores[k].push(ShowTimer.getTime());
+					}
 				}
 				me.setState({
 					rpoints:me.state.rpoints.cloneWithRows(me.markpoints)	
@@ -130,6 +137,16 @@ var tinyrace = React.createClass({
 			if(e == null) {
 				this.markpoints = JSON.parse(s);	
 			}
+		});
+	}
+
+	,seeCores(){
+		this.endWatchGps();
+		for(var i in this.markpoints){
+			this.markpoints[i].distance = this.scores[i] ? this.scores[i].join(",") : "";
+		}
+		this.setState({
+			rpoints:this.state.rpoints.cloneWithRows(this.markpoints)	
 		});
 	}
 
