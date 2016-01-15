@@ -2,12 +2,26 @@
 
 var React = require("react-native");
 var styles = require("./styles");
+var TouchableBounce = require("TouchableBounce");
 
 var {
 	View
 	,Text
 	,ActivityIndicatorIOS
 } = React;
+
+var LineButton = React.createClass({
+
+	render(){
+		return (
+			<TouchableBounce style={[styles.lineButton,this.props.style]} onPress={this.props.onPress}>
+				<Text style={styles.itemTitle}>{this.props.text}</Text>
+			</TouchableBounce>
+		);	
+	}
+
+});
+			
 
 var LoadingView = React.createClass({
 	
@@ -25,5 +39,6 @@ var LoadingView = React.createClass({
 module.exports = {
 
 	LoadingView:LoadingView
+	,LineButton:LineButton
 
 };

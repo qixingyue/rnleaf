@@ -4,6 +4,7 @@ var React = require("react-native");
 var TouchableBounce = require("TouchableBounce");
 var RU = require("../../RctUpdate");
 var styles = require("./styles");
+var Common = require("./Common");
 
 var {
 	View
@@ -11,12 +12,31 @@ var {
 } = React;
 
 var AppItem = React.createClass({
+
 		getInitialState(){
 				return {
 					itemInfo:this.props.itemInfo	
 				};
 		}
+
 		,render(){
+
+			var buttons ;
+			if(this.state.itemInfo.delMode) {
+				buttons = (
+						<View style={styles.buttonList}> 
+							<Common.LineButton onPress={this._delApp}	text={"DEL"} />
+						</View>
+				);	
+			} else {
+				buttons = (
+						<View style={styles.buttonList}> 
+							<Common.LineButton onPress={this._dAndRun}	text={"d&run"} />
+							<Common.LineButton onPress={this._rLocal}	text={"run@local"} />
+						</View>
+				);	
+			}
+
 			return (
 				<TouchableBounce style={styles.appItem} onPress={this._loadDefault}>
 						<View style={styles.holder}>
@@ -25,14 +45,7 @@ var AppItem = React.createClass({
 							<Text style={styles.itemTitle}>{this.state.itemInfo.name}</Text>
 							<Text style={styles.itemDescription}>{this.state.itemInfo.description}</Text>
 						</View>
-						<View style={styles.buttonList}>
-							<TouchableBounce style={styles.lineButton} onPress={this._dAndRun}>
-							<Text style={styles.itemTitle}>d&run</Text>
-							</TouchableBounce>
-							<TouchableBounce style={styles.lineButton} onPress={this._rLocal}>
-							<Text style={styles.itemTitle}>run@local</Text>
-							</TouchableBounce>
-						</View>
+						{buttons}
 				</TouchableBounce>
 			);	
 		}
@@ -61,6 +74,10 @@ var AppItem = React.createClass({
 			});
 			var moduleName = this.state.itemInfo.moduleName;
 			RU.loadFromLocal(moduleName)
+		}
+
+		,_delApp(){
+			this.props.reloadHandler && this.props.reloadHandler();
 		}
 });
 

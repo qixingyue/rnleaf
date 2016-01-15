@@ -14,7 +14,10 @@ module.exports = {
 		...
 	]
 	***/	
-	AppListURL:'http://anyapi.sinaapp.com/rnapp/applist.php'
+	//AppListURL:'http://anyapi.sinaapp.com/rnapp/applist.php'
+	AppListURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2'
+	,AddAppURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=add'
+	,DelAppURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=del'
 };
 
 
