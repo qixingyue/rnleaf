@@ -1219,193 +1219,36 @@ GLOBAL.document.createElement=null;}
 
 GLOBAL.MutationObserver=undefined;})(
 this);
-__d('rnleaf/app/loading.ios.js',function(global, require, module, exports) {  'use strict';
+__d('rnleaf/app/loading/loading.ios.js',function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
-var RU=require("rnleaf/RctUpdate.js");
-
-var CONFIG={
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-AppListURL:'http://anyapi.sinaapp.com/rnapp/applist.php'};var 
-
+var Applist=require("rnleaf/app/loading/applist.js");var 
 
 
 AppRegistry=
 
-
-
-
-
-React.AppRegistry;var StyleSheet=React.StyleSheet;var Text=React.Text;var View=React.View;var ActivityIndicatorIOS=React.ActivityIndicatorIOS;var ListView=React.ListView;
-
-var TouchableBounce=require("TouchableBounce");
-
-var AppItem=React.createClass({displayName:'AppItem',
-getInitialState:function(){
-return {
-itemInfo:this.props.itemInfo};},
-
-
-render:function(){
-return (
-React.createElement(TouchableBounce,{style:styles.appItem,onPress:this._loadDefault},
-React.createElement(View,{style:styles.holder}),
-
-React.createElement(View,{style:styles.textPanel},
-React.createElement(Text,{style:styles.itemTitle},this.state.itemInfo.name),
-React.createElement(Text,{style:styles.itemDescription},this.state.itemInfo.description)),
-
-React.createElement(View,{style:styles.buttonList},
-React.createElement(TouchableBounce,{style:styles.lineButton,onPress:this._dAndRun},
-React.createElement(Text,{style:styles.itemTitle},'d&run')),
-
-React.createElement(TouchableBounce,{style:styles.lineButton,onPress:this._rLocal},
-React.createElement(Text,{style:styles.itemTitle},'run@local')))));},
-
-
-
-
-
-
-_loadDefault:function(){
-this.setState({
-loaded:false});
-
-var url=this.state.itemInfo.url;
-var moduleName=this.state.itemInfo.moduleName;
-RU.loadFromUrl(url,moduleName);},
-
-
-_dAndRun:function(){
-this.setState({
-loaded:false});
-
-var url=this.state.itemInfo.url;
-var moduleName=this.state.itemInfo.moduleName;
-RU.downloadAndRun(url,moduleName);},
-
-
-_rLocal:function(){
-this.setState({
-loaded:false});
-
-var moduleName=this.state.itemInfo.moduleName;
-RU.loadFromLocal(moduleName);}});
-
+React.AppRegistry;var Navigator=React.Navigator;
 
 
 var rnleaf=React.createClass({displayName:'rnleaf',
 
-getInitialState:function(){
-var dataSource=new ListView.DataSource({rowHasChanged:function(r1,r2){return r1!==r2;}});
-return {
-loaded:false,
-dataSource:dataSource.cloneWithRows([])};},
-
-
-
 render:function(){
-if(false==this.state.loaded){
+var defaultName='Applist';
+var defaultComponent=Applist;
 return (
-React.createElement(View,{style:[styles.container,{alignItems:'center',justifyContent:'center'}]},
-React.createElement(ActivityIndicatorIOS,{color:'red',size:'large',animating:true}),
-React.createElement(Text,{style:styles.littleMargin},'Loading App List ...')));}else 
+React.createElement(Navigator,{
+initialRoute:{name:defaultName,component:defaultComponent},
+configureScene:function(){
+return Navigator.SceneConfigs.PushFromRight;},
 
-
-{
-return (
-React.createElement(View,{style:styles.container},
-React.createElement(ListView,{
-style:styles.appList,
-dataSource:this.state.dataSource,
-renderRow:function(rowData){return React.createElement(AppItem,{itemInfo:rowData});}})));}},
+renderScene:function(route,navigator){
+var Component=route.component;
+if(route.component){
+return React.createElement(Component,babelHelpers.extends({},route.params,{navigator:navigator}));}}}));}});
 
 
 
 
-
-
-
-componentDidMount:function(){var _this=this;
-fetch(CONFIG.AppListURL).
-then(function(response){return response.json();}).
-then(function(responseData){
-_this.setState({
-loaded:true,
-dataSource:_this.state.dataSource.cloneWithRows(responseData)});}).
-
-done();}});
-
-
-
-var styles=StyleSheet.create({
-container:{
-flex:1,
-backgroundColor:'#F5FCFF'},
-
-littleMargin:{
-margin:15},
-
-appList:{
-marginTop:30,
-padding:10},
-
-appItem:{
-padding:5,
-borderBottomWidth:1,
-borderStyle:'solid',
-flexDirection:'row',
-borderColor:'#B3D5BC',
-alignItems:'center',
-justifyContent:'center'},
-
-
-
-holder:{
-backgroundColor:'#eee',
-width:60,
-height:60,
-marginRight:5,
-alignItems:'center',
-justifyContent:'center'},
-
-textPanel:{
-marginLeft:15,
-flex:1},
-
-buttonList:{
-width:80,
-marginRight:5},
-
-itemTitle:{
-color:'#333333'},
-
-itemDescription:{
-color:'#999999'},
-
-lineButton:{
-backgroundColor:'#fck',
-borderColor:'#B3D5BC',
-borderWidth:1,
-borderRadius:4,
-margin:2,
-padding:2,
-alignItems:'center',
-height:30}});
 
 
 
@@ -57535,94 +57378,204 @@ Object.keys(componentOrElement));}
 
 module.exports=findDOMNode;
 });
-__d('rnleaf/RctUpdate.js',function(global, require, module, exports) {  "use strict";
+__d('rnleaf/app/loading/applist.js',function(global, require, module, exports) {  'use strict';
 
-var React=require("react-native/Libraries/react-native/react-native.js");
+var React=require('react-native/Libraries/react-native/react-native.js');
+var styles=require("rnleaf/app/loading/styles.js");
+var Common=require("rnleaf/app/loading/Common.js");
+var AppItem=require("rnleaf/app/loading/appitem.js");
+var Appm=require("rnleaf/app/loading/appm.js");
+var AddApp=require("rnleaf/app/loading/addApp.js");var 
 
-var TimerMixin=require('react-timer-mixin/TimerMixin.js');var 
+
+AppRegistry=
+
+
+
+
+React.AppRegistry;var Text=React.Text;var View=React.View;var ListView=React.ListView;var Navigator=React.Navigator;
+
+var Applist=React.createClass({displayName:'Applist',
+
+appList:[],
+delMode:false,
+getInitialState:function(){
+var dataSource=new ListView.DataSource({rowHasChanged:function(r1,r2){return true;}});
+return {
+loaded:false,
+dataSource:dataSource.cloneWithRows([])};},
+
+
+
+render:function(){var _this=this;
+if(false==this.state.loaded){
+return (
+React.createElement(Common.LoadingView,{loadingText:'Loading App List ...'}));}else 
+
+{
+return (
+React.createElement(View,{style:styles.container},
+React.createElement(ListView,{
+style:styles.appList,
+dataSource:this.state.dataSource,
+renderRow:function(rowData){return React.createElement(AppItem,{itemInfo:rowData,reloadHandler:_this.reLoadApp});}}),
+
+React.createElement(Common.LineButton,{text:'Reload App List',onPress:this.reLoadApp}),
+React.createElement(Common.LineButton,{text:'Add App Item',onPress:this.addApp}),
+React.createElement(Common.LineButton,{text:'Remove Item',onPress:this.removeApp})));}},
+
+
+
+
+
+componentDidMount:function(){
+this.reLoadApp();},
+
+
+reLoadApp:function(){var _this2=this;
+this.setState({
+loaded:false});
+
+Appm.loadAppList(function(responseData){
+_this2.appList=responseData;
+_this2.setState({
+loaded:true,
+dataSource:_this2.state.dataSource.cloneWithRows(responseData)});});},
+
+
+
+
+
+removeApp:function(){
+this.delMode=!this.delMode;
+for(var i=0;i<this.appList.length;i++){
+this.appList[i].delMode=this.delMode;}
+
+this.setState({
+dataSource:this.state.dataSource.cloneWithRows(this.appList)});},
+
+
+
+addApp:function(){var 
+navigator=this.props.navigator;
+if(navigator){
+navigator.push({
+name:"addApp screen",
+component:AddApp,
+params:{}});}}});
+
+
+
+
+
+
+module.exports=Applist;
+});
+__d('rnleaf/app/loading/styles.js',function(global, require, module, exports) {  "use strict";
+
+var React=require("react-native/Libraries/react-native/react-native.js");var 
 
 
 StyleSheet=
+React.StyleSheet;
 
+module.exports=StyleSheet.create({
+container:{
+flex:1,
+backgroundColor:'#F5FCFF'},
 
+littleMargin:{
+margin:15},
 
+appList:{
+marginTop:30,
+padding:10},
 
-React.StyleSheet;var Text=React.Text;var NativeModules=React.NativeModules;var TouchableOpacity=React.TouchableOpacity;var Alert=React.Alert;
-
-var rctUpdateObj=NativeModules.RctUpdate;
-
-var styles=StyleSheet.create({
-backButton:{
-backgroundColor:"#ae1",
+appItem:{
 padding:5,
-borderColor:"#0fa",
+borderBottomWidth:1,
+borderStyle:'solid',
+flexDirection:'row',
+borderColor:'#B3D5BC',
+alignItems:'center',
+justifyContent:'center'},
+
+
+
+holder:{
+backgroundColor:'#eee',
+width:60,
+height:60,
+marginRight:5,
+alignItems:'center',
+justifyContent:'center'},
+
+textPanel:{
+marginLeft:15,
+flex:1},
+
+buttonList:{
+width:80,
+marginRight:5},
+
+itemTitle:{
+color:'#333333'},
+
+itemDescription:{
+color:'#999999'},
+
+lineButton:{
+backgroundColor:'#fck',
+borderColor:'#B3D5BC',
 borderWidth:1,
-borderRadius:10,
-position:'absolute'}});
+borderRadius:4,
+margin:2,
+padding:2,
+alignItems:'center',
+height:30}});
+});
+__d('rnleaf/app/loading/Common.js',function(global, require, module, exports) {  "use strict";
+
+var React=require("react-native/Libraries/react-native/react-native.js");
+var styles=require("rnleaf/app/loading/styles.js");
+var TouchableBounce=require("TouchableBounce");var 
+
+
+View=
+
+
+React.View;var Text=React.Text;var ActivityIndicatorIOS=React.ActivityIndicatorIOS;
+
+var LineButton=React.createClass({displayName:"LineButton",
+
+render:function(){
+return (
+React.createElement(TouchableBounce,{style:[styles.lineButton,this.props.style],onPress:this.props.onPress},
+React.createElement(Text,{style:styles.itemTitle},this.props.text)));}});
 
 
 
-var warningMessage=function(message){
-if(null==message){
-message="LOAD ERROR !";}
 
-Alert.alert("Warning",message);};
+
+
+
+var LoadingView=React.createClass({displayName:"LoadingView",
+
+render:function(){
+return (
+React.createElement(View,{style:[styles.container,{alignItems:'center',justifyContent:'center'}]},
+React.createElement(ActivityIndicatorIOS,{color:"red",size:"large",animating:true}),
+React.createElement(Text,{style:styles.littleMargin},this.props.loadingText)));}});
+
+
+
+
 
 
 module.exports={
 
-loadFromUrl:function(url,moduleName){
-rctUpdateObj.loadFromUrl(url,moduleName,function(){warningMessage();});},
-
-
-loadFromLocal:function(moduleName){
-rctUpdateObj.loadFromLocal(moduleName,function(){warningMessage();});},
-
-
-backToBase:function(){
-rctUpdateObj.backToBase(function(){warningMessage();});},
-
-
-downloadAndRun:function(url,moduleName){
-rctUpdateObj.downloadAndRun(url,moduleName,function(){warningMessage();});},
-
-
-
-backButton:function(terminalHandler){
-var me=this;
-var realBackHandler=function(){
-terminalHandler&&terminalHandler();
-me.backToBase();};
-
-var RealBackButton=React.createClass({displayName:"RealBackButton",
-
-mixins:[TimerMixin],
-
-getInitialState:function(){
-return {
-left:0,
-bottom:0};},
-
-
-render:function(){
-return (
-React.createElement(TouchableOpacity,{onPress:me.backToBase,style:[styles.backButton,{left:this.state.left,bottom:this.state.bottom}]},
-React.createElement(Text,null,"BACK")));},
-
-
-
-
-componentDidMount:function(){var _this=this;
-this.setInterval(function(){
-_this.setState({
-left:Math.random()*10,
-bottom:Math.random()*10});},
-
-500);}});
-
-
-
-return React.createElement(RealBackButton,null);}};
+LoadingView:LoadingView,
+LineButton:LineButton};
 });
 __d('TouchableBounce',function(global, require, module, exports) {  'use strict';
 
@@ -57758,6 +57711,479 @@ this.props.children));}});
 
 module.exports=TouchableBounce;
 });
+__d('rnleaf/app/loading/appitem.js',function(global, require, module, exports) {  "use strict";
+
+var React=require("react-native/Libraries/react-native/react-native.js");
+var TouchableBounce=require("TouchableBounce");
+var RU=require("rnleaf/RctUpdate.js");
+var styles=require("rnleaf/app/loading/styles.js");
+var Common=require("rnleaf/app/loading/Common.js");var 
+
+
+View=
+
+React.View;var Text=React.Text;
+
+var AppItem=React.createClass({displayName:"AppItem",
+
+getInitialState:function(){
+return {
+itemInfo:this.props.itemInfo};},
+
+
+
+render:function(){
+
+var buttons;
+if(this.state.itemInfo.delMode){
+buttons=
+React.createElement(View,{style:styles.buttonList},
+React.createElement(Common.LineButton,{onPress:this._delApp,text:"DEL"}));}else 
+
+
+{
+buttons=
+React.createElement(View,{style:styles.buttonList},
+React.createElement(Common.LineButton,{onPress:this._dAndRun,text:"d&run"}),
+React.createElement(Common.LineButton,{onPress:this._rLocal,text:"run@local"}));}
+
+
+
+
+return (
+React.createElement(TouchableBounce,{style:styles.appItem,onPress:this._loadDefault},
+React.createElement(View,{style:styles.holder}),
+
+React.createElement(View,{style:styles.textPanel},
+React.createElement(Text,{style:styles.itemTitle},this.state.itemInfo.name),
+React.createElement(Text,{style:styles.itemDescription},this.state.itemInfo.description)),
+
+buttons));},
+
+
+
+
+_loadDefault:function(){
+this.setState({
+loaded:false});
+
+var url=this.state.itemInfo.url;
+var moduleName=this.state.itemInfo.moduleName;
+RU.loadFromUrl(url,moduleName);},
+
+
+_dAndRun:function(){
+this.setState({
+loaded:false});
+
+var url=this.state.itemInfo.url;
+var moduleName=this.state.itemInfo.moduleName;
+RU.downloadAndRun(url,moduleName);},
+
+
+_rLocal:function(){
+this.setState({
+loaded:false});
+
+var moduleName=this.state.itemInfo.moduleName;
+RU.loadFromLocal(moduleName);},
+
+
+_delApp:function(){
+this.props.reloadHandler&&this.props.reloadHandler();}});
+
+
+
+module.exports=AppItem;
+});
+__d('rnleaf/RctUpdate.js',function(global, require, module, exports) {  "use strict";
+
+var React=require("react-native/Libraries/react-native/react-native.js");
+
+var TimerMixin=require('react-timer-mixin/TimerMixin.js');var 
+
+
+StyleSheet=
+
+
+
+
+React.StyleSheet;var Text=React.Text;var NativeModules=React.NativeModules;var TouchableOpacity=React.TouchableOpacity;var Alert=React.Alert;
+
+var rctUpdateObj=NativeModules.RctUpdate;
+
+var styles=StyleSheet.create({
+backButton:{
+backgroundColor:"#ae1",
+padding:5,
+borderColor:"#0fa",
+borderWidth:1,
+borderRadius:10,
+position:'absolute'}});
+
+
+
+var warningMessage=function(message){
+if(null==message){
+message="LOAD ERROR !";}
+
+Alert.alert("Warning",message);};
+
+
+module.exports={
+
+loadFromUrl:function(url,moduleName){
+rctUpdateObj.loadFromUrl(url,moduleName,function(){warningMessage();});},
+
+
+loadFromLocal:function(moduleName){
+rctUpdateObj.loadFromLocal(moduleName,function(){warningMessage();});},
+
+
+backToBase:function(){
+rctUpdateObj.backToBase(function(){warningMessage();});},
+
+
+downloadAndRun:function(url,moduleName){
+rctUpdateObj.downloadAndRun(url,moduleName,function(){warningMessage();});},
+
+
+
+backButton:function(terminalHandler){
+var me=this;
+var realBackHandler=function(){
+terminalHandler&&terminalHandler();
+me.backToBase();};
+
+var RealBackButton=React.createClass({displayName:"RealBackButton",
+
+mixins:[TimerMixin],
+
+getInitialState:function(){
+return {
+left:0,
+bottom:0};},
+
+
+render:function(){
+return (
+React.createElement(TouchableOpacity,{onPress:me.backToBase,style:[styles.backButton,{left:this.state.left,bottom:this.state.bottom}]},
+React.createElement(Text,null,"BACK")));},
+
+
+
+
+componentDidMount:function(){var _this=this;
+this.setInterval(function(){
+_this.setState({
+left:Math.random()*10,
+bottom:Math.random()*10});},
+
+500);}});
+
+
+
+return React.createElement(RealBackButton,null);}};
+});
+__d('rnleaf/app/loading/appm.js',function(global, require, module, exports) {  var CONFIG=require("rnleaf/app/loading/config.js");
+
+module.exports={
+
+loadAppList:function(dataHandler){
+fetch(CONFIG.AppListURL).
+then(function(response){return response.json();}).
+then(function(responseData){
+dataHandler&&dataHandler(responseData);}).
+done();}};
+});
+__d('rnleaf/app/loading/config.js',function(global, require, module, exports) {  module.exports={
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AppListURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2',
+AddAppURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=add',
+DelAppURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=del'};
+});
+__d('rnleaf/app/loading/addApp.js',function(global, require, module, exports) {  "use strict";
+
+var React=require("react-native/Libraries/react-native/react-native.js");
+var styles=require("rnleaf/app/loading/styles.js");
+var NavigationBar=require('react-native-navbar/index.js');
+var Common=require("rnleaf/app/loading/Common.js");var 
+
+
+View=
+
+
+React.View;var Text=React.Text;var TextInput=React.TextInput;
+
+var addAppItem=[];
+
+var ELineFiled=React.createClass({displayName:"ELineFiled",
+
+render:function(){
+return (
+React.createElement(View,{style:{marginTop:10,marginLeft:20}},
+React.createElement(Text,null,this.props.label),
+React.createElement(TextInput,{
+style:[{padding:5,height:40,borderColor:'gray',borderWidth:1,marginTop:10,marginRight:20},this.props.style],
+multiline:this.props.multiline})));}});
+
+
+
+
+
+
+
+
+var AddAppScreen=React.createClass({displayName:"AddAppScreen",
+
+render:function(){var 
+navigator=this.props.navigator;
+return (
+React.createElement(View,{style:styles.container},
+React.createElement(NavigationBar,{title:{title:"Add App Item"},leftButton:{title:"Back",handler:function(){navigator.pop();}}}),
+React.createElement(ELineFiled,{label:"Name:",name:"name"}),
+React.createElement(ELineFiled,{label:"ModuleName:",name:"moduleName"}),
+React.createElement(ELineFiled,{label:"URL:"}),
+React.createElement(ELineFiled,{label:"Description:",multiline:true,style:{height:120}}),
+React.createElement(Common.LineButton,{style:{marginTop:20},onPress:this.addApp,text:"Add This App"})));},
+
+
+
+
+addApp:function(){var 
+navigator=this.props.navigator;
+navigator.pop();}});
+
+
+
+
+module.exports=AddAppScreen;
+});
+__d('react-native-navbar/index.js',function(global, require, module, exports) {  var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _NavbarButton=require('react-native-navbar/NavbarButton.js');var _NavbarButton2=babelHelpers.interopRequireDefault(_NavbarButton);var _styles=require('react-native-navbar/styles.js');var _styles2=babelHelpers.interopRequireDefault(_styles);var 
+
+PixelRatio=_reactNative2.default.PixelRatio;var 
+StatusBarIOS=_reactNative2.default.StatusBarIOS;var 
+Component=_reactNative2.default.Component;var 
+Text=_reactNative2.default.Text;var 
+View=_reactNative2.default.View;var 
+PropTypes=_reactNative2.default.PropTypes;
+
+
+
+
+var ButtonShape={
+title:PropTypes.string.isRequired,
+style:PropTypes.object,
+handler:PropTypes.func};
+
+
+var TitleShape={
+title:PropTypes.string.isRequired,
+tintColor:PropTypes.string};
+
+
+var StatusBarShape={
+style:PropTypes.oneOf(['light-content','default']),
+hidden:PropTypes.bool,
+tintColor:PropTypes.string,
+hideAnimation:PropTypes.oneOf(['fade','slide','none']),
+showAnimation:PropTypes.oneOf(['fade','slide','none'])};
+
+
+function customizeStatusBar(data){
+if(data.style){
+StatusBarIOS.setStyle(data.style,true);}
+
+var animation=data.hidden?
+data.hideAnimation||NavigationBar.defaultProps.statusBar.hideAnimation:
+data.showAnimation||NavigationBar.defaultProps.statusBar.showAnimation;
+
+StatusBarIOS.setHidden(data.hidden,animation);}var 
+
+
+NavigationBar=function(_Component){babelHelpers.inherits(NavigationBar,_Component);function NavigationBar(){babelHelpers.classCallCheck(this,NavigationBar);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(NavigationBar).apply(this,arguments));}babelHelpers.createClass(NavigationBar,[{key:'componentDidMount',value:function componentDidMount()
+{
+customizeStatusBar(this.props.statusBar);}},{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
+
+
+props){
+customizeStatusBar(this.props.statusBar);}},{key:'getButtonElement',value:function getButtonElement()
+
+
+{var data=arguments.length<=0||arguments[0]===undefined?{}:arguments[0];var style=arguments[1];
+if(!!data.props){
+return _reactNative2.default.createElement(View,{style:_styles2.default.navBarButton},data);}
+
+
+return _reactNative2.default.createElement(_NavbarButton2.default,{
+title:data.title,
+style:[data.style,style],
+tintColor:data.tintColor,
+handler:data.handler});}},{key:'getTitleElement',value:function getTitleElement(
+
+
+data){
+if(!!data.props){
+return _reactNative2.default.createElement(View,{style:_styles2.default.customTitle},data);}
+
+
+var colorStyle=data.tintColor?{color:data.tintColor}:null;
+
+return (
+_reactNative2.default.createElement(Text,{
+style:[_styles2.default.navBarTitleText,colorStyle]},
+data.title));}},{key:'render',value:function render()
+
+
+
+
+{
+var customTintColor=this.props.tintColor?
+{backgroundColor:this.props.tintColor}:null;
+
+var statusBar=!this.props.statusBar.hidden?
+_reactNative2.default.createElement(View,{style:[_styles2.default.statusBar]}):null;
+
+return (
+_reactNative2.default.createElement(View,{style:[_styles2.default.navBarContainer,customTintColor]},
+statusBar,
+_reactNative2.default.createElement(View,{style:[_styles2.default.navBar,this.props.style]},
+this.getTitleElement(this.props.title),
+this.getButtonElement(this.props.leftButton,{marginLeft:8}),
+this.getButtonElement(this.props.rightButton,{marginRight:8}))));}}]);return NavigationBar;}(Component);NavigationBar.
+
+
+
+
+
+propTypes={
+tintColor:PropTypes.string,
+statusBar:PropTypes.shape(StatusBarShape),
+leftButton:PropTypes.oneOfType([
+PropTypes.shape(ButtonShape),
+PropTypes.element]),
+
+rightButton:PropTypes.oneOfType([
+PropTypes.shape(ButtonShape),
+PropTypes.element]),
+
+title:PropTypes.oneOfType([
+PropTypes.shape(TitleShape),
+PropTypes.element])};NavigationBar.
+
+
+
+defaultProps={
+statusBar:{
+style:'default',
+hidden:false,
+hideAnimation:'slide',
+showAnimation:'slide'},
+
+title:{
+title:''}};
+
+
+
+module.exports=NavigationBar;
+});
+__d('react-native-navbar/NavbarButton.js',function(global, require, module, exports) {  Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);var _styles=require('react-native-navbar/styles.js');var _styles2=babelHelpers.interopRequireDefault(_styles);var 
+
+Text=_reactNative2.default.Text;var 
+TouchableOpacity=_reactNative2.default.TouchableOpacity;var 
+Component=_reactNative2.default.Component;var 
+View=_reactNative2.default.View;var 
+PropTypes=_reactNative2.default.PropTypes;var 
+
+
+
+NavbarButton=function(_Component){babelHelpers.inherits(NavbarButton,_Component);function NavbarButton(){babelHelpers.classCallCheck(this,NavbarButton);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(NavbarButton).apply(this,arguments));}babelHelpers.createClass(NavbarButton,[{key:'render',value:function render()
+{var _props=
+this.props;var style=_props.style;var tintColor=_props.tintColor;var margin=_props.margin;var title=_props.title;var handler=_props.handler;
+
+return (
+_reactNative2.default.createElement(TouchableOpacity,{onPress:handler},
+_reactNative2.default.createElement(View,{style:style},
+_reactNative2.default.createElement(Text,{style:[_styles2.default.navBarButtonText,{color:tintColor}]},title))));}}]);return NavbarButton;}(Component);NavbarButton.
+
+
+
+
+
+propTypes={
+style:PropTypes.oneOfType([
+PropTypes.object,
+PropTypes.array]),
+
+tintColor:PropTypes.string,
+title:PropTypes.string,
+handler:PropTypes.func};NavbarButton.
+
+
+defaultProps={
+style:{},
+title:'',
+tintColor:'#0076FF',
+onPress:function(){return {};}};exports.default=NavbarButton;
+});
+__d('react-native-navbar/styles.js',function(global, require, module, exports) {  var NAV_BAR_HEIGHT=39;
+var STATUS_BAR_HEIGHT=20;
+var NAV_HEIGHT=NAV_BAR_HEIGHT+STATUS_BAR_HEIGHT;
+
+module.exports={
+navBarContainer:{
+backgroundColor:'white',
+paddingBottom:5},
+
+statusBar:{
+height:STATUS_BAR_HEIGHT},
+
+navBar:{
+height:NAV_BAR_HEIGHT,
+flexDirection:'row',
+justifyContent:'space-between'},
+
+customTitle:{
+position:'absolute',
+left:0,
+right:0,
+bottom:7,
+alignItems:'center'},
+
+navBarButton:{
+marginTop:12},
+
+navBarButtonText:{
+fontSize:17,
+letterSpacing:0.5,
+marginTop:12},
+
+navBarTitleText:{
+fontSize:17,
+letterSpacing:0.5,
+color:'#333',
+fontWeight:'500',
+position:'absolute',
+left:0,
+right:0,
+bottom:7,
+textAlign:'center'}};
+});
 ;require("InitializeJavaScriptAppEngine");
-;require("rnleaf/app/loading.ios.js");
-//@ sourceMappingURL=/app/loading.ios.map
+;require("rnleaf/app/loading/loading.ios.js");
+//@ sourceMappingURL=/app/loading/loading.ios.map?platform=ios&dev=true

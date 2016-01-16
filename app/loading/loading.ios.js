@@ -18,7 +18,7 @@ var rnleaf = React.createClass({
 			<Navigator
 				initialRoute={{ name: defaultName, component: defaultComponent }}
 				configureScene={() => {
-					return Navigator.SceneConfigs.VerticalDownSwipeJump;
+					return Navigator.SceneConfigs.PushFromRight;
 				}}
 				renderScene={(route, navigator) => {
 					let Component = route.component;

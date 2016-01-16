@@ -16,10 +16,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-//  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/app/loading.ios.bundle?platform=ios&dev=true"];
-//    jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.112:8081/app/loading.ios.bundle?platform=ios&dev=true"];
-//  jsCodeLocation = [NSURL URLWithString:@"http://10.217.39.251:8081/app/tinyrace/tinyrace.ios.bundle?platform=ios&dev=true"];
-// curl -o ./rnleaf/loading.jsbundle "http://localhost:8081/app/loading.ios.bundle"
+//  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/app/loading/loading.ios.bundle?platform=ios&dev=true"];
+//  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.112:8081/app/loading/loading.ios.bundle?platform=ios&dev=true"];
+  
+// curl -o ./rnleaf/loading.jsbundle "http://localhost:8081/app/loading/loading.ios.bundle"
   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"loading" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation

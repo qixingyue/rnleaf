@@ -21,9 +21,11 @@ module.exports = React.createClass({
 		return (
 			<View style={{flexDirection:"row"}}>	
 				<Text style={{color:"blue",fontSize:12,margin:10}}>{this.state.num}</Text>
-				<Text style={{fontSize:12,margin:10}}>{this.state.gpsinfo.distance}M</Text>
+				<Text style={{fontSize:12,margin:10}}>{this.state.gpsinfo.distance}</Text>
 			</View>	
 		);
 	}
 
 });
+
+
