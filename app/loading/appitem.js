@@ -5,6 +5,7 @@ var TouchableBounce = require("TouchableBounce");
 var RU = require("../../RctUpdate");
 var styles = require("./styles");
 var Common = require("./Common");
+var appm = require("./appm");
 
 var {
 	View
@@ -77,7 +78,16 @@ var AppItem = React.createClass({
 		}
 
 		,_delApp(){
-			this.props.reloadHandler && this.props.reloadHandler();
+			var url = this.state.itemInfo.url;
+			var moduleName = this.state.itemInfo.moduleName;
+			var me = this;
+			appm.removeApp(url,moduleName,(res,message) => {
+				if(res) {
+					me.props.reloadHandler && me.props.reloadHandler();
+				} else {
+					alert("DEL FAILED >> " + message);	
+				}
+			});			
 		}
 });
 

@@ -1,3 +1,4 @@
+var host = "http://anyapi.sinaapp.com";
 module.exports = {
 	/***
 	获取app列表的URL 返回demo 
@@ -14,10 +15,9 @@ module.exports = {
 		...
 	]
 	***/	
-	//AppListURL:'http://anyapi.sinaapp.com/rnapp/applist.php'
-	AppListURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2'
-	,AddAppURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=add'
-	,DelAppURL:'http://anyapi.sinaapp.com/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=del'
+	AppListURL:host + '/rnapp/app.php?password=de7e95132907c131911a952240a246e2'
+	,AddAppURL:host + '/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=add'
+	,DelAppURL:host + '/rnapp/app.php?password=de7e95132907c131911a952240a246e2&action=del'
 };
 
 

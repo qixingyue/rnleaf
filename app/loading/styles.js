@@ -59,7 +59,8 @@ module.exports = StyleSheet.create({
 		,margin:2
 		,padding:2
 		,alignItems:'center'
-		,height:30
+		,justifyContent:'center'
+		,height:40
 	}
 });
 
