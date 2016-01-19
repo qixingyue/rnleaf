@@ -30,9 +30,13 @@ RCT_EXPORT_MODULE();
 }
 
 - (BOOL) checkURL:(NSURL *) url {
+  NSLog(@"Load Module From : %@",url);
+  NSError *error;
+  NSHTTPURLResponse *response = nil;
   NSURLRequest *request = [[NSURLRequest alloc] initWithURL : url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-  dataPtr = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-  if([dataPtr length] == 0 ) return NO;
+  dataPtr = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+  if([response statusCode] != 200 || error || [dataPtr length] == 0 ) return NO;
+  NSLog(@"Download Length : %ld",[dataPtr length]);
   return YES;
 }
 
@@ -81,7 +85,6 @@ RCT_EXPORT_MODULE();
     return NO;
   }
   
-  NSLog(@"download length %ld",[dataPtr length]);
   NSString *path = [[documentPath stringByAppendingString:@"/"] stringByAppendingString:savefileName];
   [dataPtr writeToFile:path atomically:YES];
   return [self showLocalModuleApp:moduleName];
