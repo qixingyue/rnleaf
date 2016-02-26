@@ -20,6 +20,17 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>I need Your Location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>I need Your Locaiton</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>I need Your Location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -34,16 +45,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>I need Your Location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>I need Your Location</string>
-	<key>NSLocationUsageDescription</key>
-	<string>I need Your Locaiton</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>rnleaf</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>item.rnleaf</string>
+		</dict>
+	</array>
 </dict>
 </plist>
